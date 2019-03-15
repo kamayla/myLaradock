@@ -24,6 +24,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # always run apt update when start and after add new source list, then clean up at end.
 RUN apt-get update -yqq && \
     apt-get install -y apt-utils && \
+    apt-get install -y poppler-utils && \
     pecl channel-update pecl.php.net
 
 #
@@ -230,6 +231,10 @@ RUN if [ ${INSTALL_BCMATH} = true ]; then \
     # Install the bcmath extension
     docker-php-ext-install bcmath \
 ;fi
+
+RUN apt-get install -y gnupg
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
 
 ###########################################################################
 # GMP (GNU Multiple Precision):

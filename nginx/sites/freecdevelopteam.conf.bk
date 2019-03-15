@@ -1,11 +1,17 @@
 server {
 
-    listen 80;
-    listen [::]:80;
+    listen 80 default_server;
 
-    server_name laravel.test;
-    root /var/www/laravel/public;
+    listen 443 ssl;
+
+    listen [::]:80 default_server ipv6only=on;
+
+    server_name freecdevelopteam.local;
+    root /var/www/freecdevelopteam/public;
     index index.php index.html index.htm;
+
+    ssl_certificate     /etc/nginx/ssl/localhost.crt;
+    ssl_certificate_key /etc/nginx/ssl/localhost.key;
 
     location / {
          try_files $uri $uri/ /index.php$is_args$args;
